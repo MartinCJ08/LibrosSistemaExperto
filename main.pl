@@ -6,10 +6,26 @@
  :-consult('./motorDeInferencia.pl').
  :- dynamic color/2.
  
- resource(img_principal, image, image('fondo2.jpg')).
- resource(portada, image, image('fondo2.jpg')).
- resource(lupa,image,image('lupa.jpg')).
-
+resource(img_principal, image, image('fondo2.jpg')).
+resource(portada, image, image('fondo2.jpg')).
+resource(lupa,image,image('lupa.jpg')).
+resource(a_traves_del_espejo_y_lo_que_alicia_encontro_alli,image,image('a_traves_del_espejo_y_lo_que_alicia_encontro_alli.jpg')).
+resource(alicia_en_el_pais_de_las_maravillas_y_a_traves_del_espejo,image,image('alicia_en_el_pais_de_las_maravillas_y_a_traves_del_espejo.jpg')).
+resource(asesino_en_el_oriente_express,image,image('asesino_en_el_oriente_express.jpg')).
+resource(bajo_la_misma_estrella,image,image('bajo_la_misma_estrella.jpg')).
+resource(el_dia_que_dejo_de_nevar_en_alaska,image,image('el_dia_que_dejo_de_nevar_en_alaska.jpg')).
+resource(el_dia_que_el_oceano_te_mire_a_los_ojos,image,image('el_dia_que_el_oceano_te_mire_a_los_ojos.jpg')).
+resource(el_principito,image,image('el_principito.jpg')).
+resource(el_regreso_del_joven_principe,image,image('el_regreso_del_joven_principe.jpg')).
+resource(eleanor_y_park,image,image('eleanor_y_park.jpg')).
+resource(la_vuelta_al_mundo_en_ochenta_dias,image,image('la_vuelta_al_mundo_en_ochenta_dias.jpg')).
+resource(los_miserables,image,image('los_miserables.jpg')).
+resource(los_viajes_de_gulliver,image,image('los_viajes_de_gulliver.jpg')).
+resource(maze_runner,image,image('maze_runner.jpg')).
+resource(moby_dick,image,image('moby_dick.jpg')).
+resource(si_entras_te_atrapara_el_sotano,image,image('si_entras_te_atrapara_el_sotano.jpg')).
+resource(la_cabana,image,image('la_cabana.jpg')).
+resource(orgullo_y_prejuicio,image).
  
  mostrar_imagen(Pantalla, Imagen) :- new(Figura, figure),
                                      new(Bitmap, bitmap(resource(Imagen),@on)),
@@ -40,7 +56,7 @@
                 send(@boton, free),
                 send(@btntratamiento,free),
                 mostrar_diagnostico(Enfermedad),
-                send(@texto, selection('El Diagnostico a partir de los datos es:')),
+                send(@texto, selection('El libro recomendado a partir de los datos es:')),
                 send(@resp1, selection(Enfermedad)),
                 new(@boton, button('Iniciar consulta',
                 message(@prolog, botones)
@@ -62,7 +78,7 @@
                           send(@tratam, transient_for, @main),
                           send(@tratam, open_centered).
 
-tratamiento(X):- send(@lblExp1,selection('De Acuerdo Al Diagnostico El Tratamiento Es:')),
+tratamiento(X):- send(@lblExp1,selection('De Acuerdo a lo contestado, tu libro recomendado es:')),
                  mostrar_imagen_tratamiento(@tratam,X).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
@@ -86,7 +102,7 @@ tratamiento(X):- send(@lblExp1,selection('De Acuerdo Al Diagnostico El Tratamien
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  interfaz_principal:-new(@main,dialog('Sistema Experto Diagnosticador de Enfermedades deL Goldfish',
+  interfaz_principal:-new(@main,dialog('Sistema Experto Para Recomendar Libros',
         size(1000,1000))),
         new(@texto, label(nombre,'El Diagnostico a partir de los datos es:',font('times','roman',18))),
         new(@resp1, label(nombre,'',font('times','roman',22))),
@@ -95,7 +111,7 @@ tratamiento(X):- send(@lblExp1,selection('De Acuerdo Al Diagnostico El Tratamien
         new(@salir,button('SALIR',and(message(@main,destroy),message(@main,free)))),
         new(@boton, button('Iniciar consulta',message(@prolog, botones))),
 
-        new(@btntratamiento,button('¿Tratamiento?')),
+        new(@btntratamiento,button('¿Libro?')),
 
         nueva_imagen(@main, img_principal),
         send(@main, display,@boton,point(138,450)),
@@ -109,7 +125,7 @@ tratamiento(X):- send(@lblExp1,selection('De Acuerdo Al Diagnostico El Tratamien
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  main:- new(@interfaz,dialog('Bienvenido al Sistema Experto Diagnosticador',
+  main:- new(@interfaz,dialog('Bienvenido al Sistema Experto Recomendador',
   size(1000,1000))),
 
   mostrar_imagen(@interfaz, portada),
@@ -121,4 +137,4 @@ tratamiento(X):- send(@lblExp1,selection('De Acuerdo Al Diagnostico El Tratamien
   send(@interfaz,append(BotonSalir)),
   send(@interfaz,open_centered).
 
-  %%:-main.
+  :-main.
